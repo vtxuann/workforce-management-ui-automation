@@ -1,2 +1,13 @@
 # Environment
 .env
+
+# Node
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

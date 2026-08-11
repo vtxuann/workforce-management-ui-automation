@@ -1,0 +1,32 @@
+{
+  "name": "workforce-management-ui-automation",
+  "version": "1.0.0",
+  "description": "End-to-end UI automation framework for OrangeHRM using Playwright and TypeScript",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:smoke": "playwright test tests/auth/smoke.spec.ts",
+    "test:report": "playwright show-report",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "qa",
+    "testing"
+  ],
+  "author": "Vo Thanh Xuan",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "typescript": "^7.0.2"
+  }
+}
