@@ -236,7 +236,7 @@ The project uses a phase-based schedule rather than fixed calendar deadlines bec
 | Sprint 0 | Environment setup and Dockerized OrangeHRM | Complete |
 | Sprint 1 | Playwright project and framework initialization| Complete |
 | Sprint 2 | System exploration and risk-based scope definition | Complete |
-| Sprint 3 | Test planning and test design | In Progress |
+| Sprint 3 | Test planning and test design | Complete |
 | Sprint 4 | Authentication test automation | Planned |
 | Sprint 5 | PIM / Employee Management automation | Planned |
 | Sprint 6 | Leave Management automation | Planned |
