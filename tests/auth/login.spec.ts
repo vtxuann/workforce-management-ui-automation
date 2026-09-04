@@ -1,40 +1,35 @@
 import { test, expect } from '@playwright/test';
+
 import { LoginPage } from '../../pages/LoginPage.js';
+import { DashboardPage } from '../../pages/DashboardPage.js';
+import { env } from '../../config/env.js';
 import { invalidCredentials } from '../../utils/test-data.js';
 
 test.describe('Authentication - Login', () => {
-  test('AT-AUTH-001 | Login with valid credentials @smoke', async ({ page }) => {
+  test('AT-AUTH-001 | Login with valid credentials @smoke', async ({
+    page, }) => {
     const loginPage = new LoginPage(page);
-
-    const username = process.env.ADMIN_USERNAME;
-    const password = process.env.ADMIN_PASSWORD;
-
-    if (!username || !password) {
-      throw new Error(
-        'ADMIN_USERNAME and ADMIN_PASSWORD must be defined in the environment.',
-      );
-    }
+    const dashboardPage = new DashboardPage(page);
 
     await loginPage.goto();
-    await loginPage.login(username, password);
+
+    await loginPage.login(
+      env.adminUsername,
+      env.adminPassword,
+    );
 
     await expect(page).toHaveURL(/dashboard/);
+    await expect(dashboardPage.userDropdown).toBeVisible();
   });
 
   test('AT-AUTH-002 | Login with invalid username', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
-    const password = process.env.ADMIN_PASSWORD;
-
-    if (!password) {
-      throw new Error('ADMIN_PASSWORD must be defined in the environment.');
-    }
-
     await loginPage.goto();
 
     await loginPage.login(
       invalidCredentials.invalidUsername,
-      password,
+      env.adminPassword,
     );
 
     await expect(loginPage.invalidCredentialsMessage).toBeVisible();
@@ -44,16 +39,10 @@ test.describe('Authentication - Login', () => {
   test('AT-AUTH-003 | Login with invalid password', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
-    const username = process.env.ADMIN_USERNAME;
-
-    if (!username) {
-      throw new Error('ADMIN_USERNAME must be defined in the environment.');
-    }
-
     await loginPage.goto();
 
     await loginPage.login(
-      username,
+      env.adminUsername,
       invalidCredentials.invalidPassword,
     );
 
@@ -64,16 +53,8 @@ test.describe('Authentication - Login', () => {
   test('AT-AUTH-004 | Login with empty username', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
-    const password = process.env.ADMIN_PASSWORD;
-
-    if (!password) {
-      throw new Error(
-        'ADMIN_PASSWORD must be defined in the environment.',
-      );
-    }
-
     await loginPage.goto();
-    await loginPage.login('', password);
+    await loginPage.login('', env.adminPassword);
 
     await expect(loginPage.usernameRequiredMessage).toBeVisible();
 
@@ -87,16 +68,8 @@ test.describe('Authentication - Login', () => {
   test('AT-AUTH-005 | Login with empty password', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
-    const username = process.env.ADMIN_USERNAME;
-
-    if (!username) {
-      throw new Error(
-        'ADMIN_USERNAME must be defined in the environment.',
-      );
-    }
-
     await loginPage.goto();
-    await loginPage.login(username, '');
+    await loginPage.login(env.adminUsername, '')
 
     await expect(loginPage.passwordRequiredMessage).toBeVisible();
 
