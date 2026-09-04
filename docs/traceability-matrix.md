@@ -124,15 +124,15 @@ A test classified as Smoke may also be executed as part of the complete Regressi
 
 | Scenario ID | Test Case ID | Test Case | Priority | Automation Decision | Automated Test ID | Suite | Rationale | Status |
 |---|---|---|---|---|---|---|---|---|
-| TS-AUTH-001 | TC-AUTH-001 | Login with valid credentials | P0 | Selected | AT-AUTH-001 | Smoke | Core authentication happy path with high regression value and deterministic outcome. | Planned |
-| TS-AUTH-001 | TC-AUTH-002 | Login with invalid username | P0 | Selected | AT-AUTH-002 | Regression | Critical credential rejection behavior with deterministic validation outcome. | Planned |
-| TS-AUTH-001 | TC-AUTH-003 | Login with invalid password | P0 | Selected | AT-AUTH-003 | Regression | Critical credential rejection behavior with deterministic validation outcome. | Planned |
-| TS-AUTH-001 | TC-AUTH-004 | Login with empty username | P1 | Selected | AT-AUTH-004 | Regression | Repeatable required-field validation with low automation complexity. | Planned |
-| TS-AUTH-001 | TC-AUTH-005 | Login with empty password | P1 | Selected | AT-AUTH-005 | Regression | Repeatable required-field validation with low automation complexity. | Planned |
-| TS-AUTH-001 | TC-AUTH-006 | Login with both username and password empty | P2 | Selected | AT-AUTH-006 | Regression | Provides combined required-field validation coverage at low implementation cost. | Planned |
-| TS-AUTH-002 | TC-AUTH-007 | Logout from an authenticated session | P0 | Selected | AT-AUTH-007 | Smoke | Critical authentication state transition and prerequisite for post-logout security verification. | Planned |
-| TS-AUTH-003 | TC-AUTH-008 | Browser Back after logout | P0 | Selected | AT-AUTH-008 | Regression | Verifies protected functionality remains inaccessible after logout despite browser history behavior. | Planned |
-| TS-AUTH-003 | TC-AUTH-009 | Direct navigation to a protected resource after logout | P0 | Selected | AT-AUTH-009 | Smoke | Critical access-control regression verifying unauthenticated users cannot directly access protected functionality. | Planned |
+| TS-AUTH-001 | TC-AUTH-001 | Login with valid credentials | P0 | Selected | AT-AUTH-001 | Smoke | Core authentication happy path with high regression value and deterministic outcome. | Automated |
+| TS-AUTH-001 | TC-AUTH-002 | Login with invalid username | P0 | Selected | AT-AUTH-002 | Regression | Critical credential rejection behavior with deterministic validation outcome. | Automated |
+| TS-AUTH-001 | TC-AUTH-003 | Login with invalid password | P0 | Selected | AT-AUTH-003 | Regression | Critical credential rejection behavior with deterministic validation outcome. | Automated |
+| TS-AUTH-001 | TC-AUTH-004 | Login with empty username | P1 | Selected | AT-AUTH-004 | Regression | Repeatable required-field validation with low automation complexity. | Automated |
+| TS-AUTH-001 | TC-AUTH-005 | Login with empty password | P1 | Selected | AT-AUTH-005 | Regression | Repeatable required-field validation with low automation complexity. | Automated |
+| TS-AUTH-001 | TC-AUTH-006 | Login with both username and password empty | P2 | Selected | AT-AUTH-006 | Regression | Provides combined required-field validation coverage at low implementation cost. | Automated |
+| TS-AUTH-002 | TC-AUTH-007 | Logout from an authenticated session | P0 | Selected | AT-AUTH-007 | Smoke | Critical authentication state transition and prerequisite for post-logout security verification. | Automated |
+| TS-AUTH-003 | TC-AUTH-008 | Browser Back after logout | P0 | Selected | AT-AUTH-008 | Regression | Verifies protected functionality remains inaccessible after logout despite browser history behavior. | Automated |
+| TS-AUTH-003 | TC-AUTH-009 | Direct navigation to a protected resource after logout | P0 | Selected | AT-AUTH-009 | Smoke | Critical access-control regression verifying unauthenticated users cannot directly access protected functionality. | Automated |
 
 ### Authentication Automation Summary
 
