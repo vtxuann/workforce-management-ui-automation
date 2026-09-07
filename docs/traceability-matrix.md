@@ -155,25 +155,25 @@ Authentication is fully selected for MVP automation because the workflows are hi
 
 | Scenario ID | Test Case ID | Test Case | Priority | Automation Decision | Automated Test ID | Suite | Rationale | Status |
 |---|---|---|---|---|---|---|---|---|
-| TS-PIM-001 | TC-PIM-001 | Search employees using valid employee information | P1 | Selected | AT-PIM-001 | Regression | Core employee retrieval behavior with high repeatability and regression value. | Planned |
+| TS-PIM-001 | TC-PIM-001 | Search employees using valid employee information | P1 | Selected | AT-PIM-001 | Regression | Core employee retrieval behavior with high repeatability and regression value. | Automated |
 | TS-PIM-001 | TC-PIM-002 | Search with information that has no matching employee | P2 | Backlog | - | - | Valid negative search coverage, but lower MVP regression value than successful retrieval. | Backlog |
-| TS-PIM-001 | TC-PIM-003 | Apply available employee filters | P1 | Selected | AT-PIM-003 | Regression | Important filtering behavior suitable for repeatable automated verification. | Planned |
+| TS-PIM-001 | TC-PIM-003 | Apply available employee filters | P1 | Selected | AT-PIM-003 | Regression | Important filtering behavior suitable for repeatable automated verification. | Automated |
 | TS-PIM-001 | TC-PIM-004 | Apply multiple search and filter criteria | P2 | Deferred Scope | - | - | Advanced multi-criteria filtering belongs to candidate scope rather than the current MVP automation scope. | Deferred |
 | TS-PIM-001 | TC-PIM-005 | Reset search and filter criteria | P2 | Backlog | - | - | Useful supporting behavior but lower automation priority than core search and filtering. | Backlog |
-| TS-PIM-002 | TC-PIM-006 | Create an employee with valid required information | P0 | Selected | AT-PIM-006 | Smoke | Critical employee creation workflow and core PIM transaction. | Planned |
-| TS-PIM-002 | TC-PIM-007 | Submit employee creation with required name fields empty | P1 | Selected | AT-PIM-007 | Regression | Confirmed First Name and Last Name required-field validation with deterministic observable behavior. | Planned |
+| TS-PIM-002 | TC-PIM-006 | Create an employee with valid required information | P0 | Selected | AT-PIM-006 | Smoke | Critical employee creation workflow and core PIM transaction. | Automated |
+| TS-PIM-002 | TC-PIM-007 | Submit employee creation with required name fields empty | P1 | Selected | AT-PIM-007 | Regression | Confirmed First Name and Last Name required-field validation with deterministic observable behavior. | Automated |
 | TS-PIM-002 | TC-PIM-008 | Validate Employee ID behavior with alphabetic and special characters | P1 | Manual | - | - | Current behavior is observed, but the intended Employee ID format requirement remains unclear; automation could incorrectly convert implementation behavior into a business requirement. | Manual |
 | TS-PIM-002 | TC-PIM-009 | Validate leading and trailing whitespace handling in employee name fields | P1 | Manual | - | - | Valuable data-quality observation, but no confirmed normalization or trimming requirement is currently available. | Manual |
 | TS-PIM-002 | TC-PIM-010 | Verify employee search behavior for name values containing whitespace | P1 | Manual | - | - | Search behavior involving preserved whitespace is observed but should not yet be treated as a formal regression contract. | Manual |
-| TS-PIM-002 | TC-PIM-011 | Create an employee with a duplicate Employee ID | P1 | Selected | AT-PIM-011 | Regression | Confirmed deterministic validation rule with observable `Employee Id already exists` feedback. | Planned |
-| TS-PIM-002 | TC-PIM-012 | Verify newly created employee can be retrieved | P1 | Selected | AT-PIM-012 | Regression | Verifies persistence and retrievability after employee creation. | Planned |
-| TS-PIM-003 | TC-PIM-013 | Update an existing employee with valid information | P0 | Selected | AT-PIM-013 | Smoke | Critical employee update workflow with high business and regression value. | Planned |
-| TS-PIM-003 | TC-PIM-014 | Validate required name fields when updating an employee | P1 | Selected | AT-PIM-014 | Regression | Confirmed required-field validation for First Name and Last Name during employee update. | Planned |
+| TS-PIM-002 | TC-PIM-011 | Create an employee with a duplicate Employee ID | P1 | Selected | AT-PIM-011 | Regression | Confirmed deterministic validation rule with observable `Employee Id already exists` feedback. | Automated |
+| TS-PIM-002 | TC-PIM-012 | Verify newly created employee can be retrieved | P1 | Selected | AT-PIM-012 | Regression | Verifies persistence and retrievability after employee creation. | Automated |
+| TS-PIM-003 | TC-PIM-013 | Update an existing employee with valid information | P0 | Selected | AT-PIM-013 | Smoke | Critical employee update workflow with high business and regression value. | Automated |
+| TS-PIM-003 | TC-PIM-014 | Validate required name fields when updating an employee | P1 | Selected | AT-PIM-014 | Regression | Confirmed required-field validation for First Name and Last Name during employee update. | Automated |
 | TS-PIM-003 | TC-PIM-015 | Update an employee with an empty Employee ID | P1 | Manual | - | - | Empty Employee ID is currently accepted, but the intended business requirement is undocumented; retained as observed behavior rather than automated regression contract. | Manual |
-| TS-PIM-003 | TC-PIM-016 | Verify updated employee information persists after saving | P0 | Selected | AT-PIM-016 | Regression | Critical persistence verification after employee update. | Planned |
+| TS-PIM-003 | TC-PIM-016 | Verify updated employee information persists after saving | P0 | Selected | AT-PIM-016 | Regression | Critical persistence verification after employee update. | Automated |
 | TS-PIM-004 | TC-PIM-017 | Cancel employee deletion | P1 | Backlog | - | - | Valid workflow branch but lower MVP automation value than confirmed deletion and post-deletion integrity. | Backlog |
-| TS-PIM-004 | TC-PIM-018 | Confirm employee deletion | P0 | Selected | AT-PIM-018 | Smoke | Critical destructive CRUD operation with high regression value. | Planned |
-| TS-PIM-004 | TC-PIM-019 | Verify deleted employee is no longer available | P0 | Selected | AT-PIM-019 | Regression | Verifies data integrity and persistence after deletion. | Planned |
+| TS-PIM-004 | TC-PIM-018 | Confirm employee deletion | P0 | Selected | AT-PIM-018 | Smoke | Critical destructive CRUD operation with high regression value. | Automated |
+| TS-PIM-004 | TC-PIM-019 | Verify deleted employee is no longer available | P0 | Selected | AT-PIM-019 | Regression | Verifies data integrity and persistence after deletion. | Automated |
 
 ### PIM Automation Summary
 
