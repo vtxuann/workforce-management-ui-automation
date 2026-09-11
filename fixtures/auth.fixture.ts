@@ -1,8 +1,9 @@
 import { test as base, expect, type Page } from '@playwright/test';
-
 import { LoginPage } from '../pages/LoginPage.js';
 import { DashboardPage } from '../pages/DashboardPage.js';
-import { env } from '../config/env.js';
+
+const adminUsername = process.env.ADMIN_USERNAME!;
+const adminPassword = process.env.ADMIN_PASSWORD!;
 
 type AuthFixtures = {
   authenticatedPage: Page;
@@ -14,14 +15,19 @@ export const test = base.extend<AuthFixtures>({
     const dashboardPage = new DashboardPage(page);
 
     await loginPage.goto();
-
     await loginPage.login(
-      env.adminUsername,
-      env.adminPassword,
+      adminUsername,
+      adminPassword,
     );
 
     await expect(page).toHaveURL(/dashboard/);
     await expect(dashboardPage.userDropdown).toBeVisible();
+
+    if (!(await dashboardPage.isDisplayed())) {
+      throw new Error(
+        'authenticatedPage fixture: login did not reach the Dashboard as expected.'
+      );
+    }
 
     await use(page);
   },

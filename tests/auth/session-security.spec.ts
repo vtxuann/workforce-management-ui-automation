@@ -1,10 +1,10 @@
 import { test, expect } from '../../fixtures/auth.fixture.js';
-
 import { LoginPage } from '../../pages/LoginPage.js';
 import { DashboardPage } from '../../pages/DashboardPage.js';
 
-test.describe('Authentication - Session Security', () => {
-  test('AT-AUTH-008 | Prevent protected access using Browser Back after logout', async ({
+test.describe('Authentication - Post-Logout Session Security (TS-AUTH-003)', () => {
+  test('AT-AUTH-008 | Prevent protected access using Browser Back after logout',
+    { tag: ['@auth'] }, async ({
     authenticatedPage,
   }) => {
     const page = authenticatedPage;
@@ -27,7 +27,8 @@ test.describe('Authentication - Session Security', () => {
 
   });
 
-  test('AT-AUTH-009 | Prevent direct protected URL access after logout @smoke', async ({
+  test('AT-AUTH-009 | Prevent direct protected URL access after logout',
+    { tag: ['@smoke', '@auth'] }, async ({
     authenticatedPage,
   }) => {
     const page = authenticatedPage;

@@ -21,36 +21,29 @@ export class LoginPage {
     this.usernameInput = page.getByPlaceholder('Username');
     this.passwordInput = page.getByPlaceholder('Password');
 
-    this.loginButton = page.getByRole('button', {
-      name: 'Login',
-    });
+    this.loginButton = page.getByRole('button', { name: 'Login' });
 
-    this.invalidCredentialsMessage = page.getByText(
-      'Invalid credentials',
-      { exact: true },
-    );
+    this.invalidCredentialsMessage = page.getByText('Invalid credentials', { exact: true });
 
     this.usernameFieldGroup = page
       .locator('.oxd-input-group')
-      .filter({
-        has: page.getByText('Username', { exact: true }),
-      });
+      .filter({ has: page.getByText('Username', { exact: true }) });
 
     this.passwordFieldGroup = page
       .locator('.oxd-input-group')
-      .filter({
-        has: page.getByText('Password', { exact: true }),
-      });
+      .filter({ has: page.getByText('Password', { exact: true }) });
 
     this.usernameRequiredMessage =
-      this.usernameFieldGroup.getByText('Required', {
-        exact: true,
-      });
+      page
+        .locator('.oxd-input-group')
+        .filter({ has: this.usernameInput })
+        .locator('.oxd-input-field-error-message');
 
     this.passwordRequiredMessage =
-      this.passwordFieldGroup.getByText('Required', {
-        exact: true,
-      });
+      page
+        .locator('.oxd-input-group')
+        .filter({ has: this.passwordInput })
+        .locator('.oxd-input-field-error-message');
   }
 
   async goto() {

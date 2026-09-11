@@ -10,9 +10,11 @@ export class DashboardPage {
 
     this.userDropdown = page.locator('.oxd-userdropdown-tab');
 
-    this.logoutLink = page.getByRole('menuitem', { 
-      name: 'Logout',
-    });
+    this.logoutLink = page.getByRole('menuitem', { name: 'Logout' });
+  }
+
+   async isDisplayed(): Promise<boolean> {
+    return /\/dashboard\/index/.test(this.page.url());
   }
 
   async logout() {
