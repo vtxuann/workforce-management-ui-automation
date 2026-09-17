@@ -4,14 +4,14 @@ import { DashboardPage } from '../../pages/DashboardPage.js';
 
 test.describe('Authentication - Logout (TS-AUTH-002)', () => {
   test('AT-AUTH-007 | Logout from an authenticated session',
-    { tag: ['@smoke', '@auth'] }, async ({ authenticatedPage}) => {
-    const page = authenticatedPage;
-    const loginPage = new LoginPage(page);
-    const dashboardPage = new DashboardPage(page);
+    { tag: ['@smoke', '@auth'] }, async ({ authenticatedPage }) => {
+      const page = authenticatedPage;
+      const loginPage = new LoginPage(page);
+      const dashboardPage = new DashboardPage(page);
 
-    await dashboardPage.logout();
+      await dashboardPage.logout();
 
-    await expect(page).toHaveURL(/auth\/login/);
-    await expect(loginPage.loginButton).toBeVisible();
-  });
+      await expect(page).toHaveURL(/auth\/login/);
+      await expect(loginPage.loginButton).toBeVisible();
+    });
 });

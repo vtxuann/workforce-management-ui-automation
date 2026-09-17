@@ -13,7 +13,7 @@ export class DashboardPage {
     this.logoutLink = page.getByRole('menuitem', { name: 'Logout' });
   }
 
-   async isDisplayed(): Promise<boolean> {
+  async isDisplayed(): Promise<boolean> {
     return /\/dashboard\/index/.test(this.page.url());
   }
 
