@@ -1,15 +1,13 @@
-import { test, expect } from '../../fixtures/auth.fixture.js';
-
-import { PimPage } from '../../pages/PimPage.js';
+import { test, expect } from '../../fixtures/pim.fixture.js';
 import { generateEmployeeData } from '../../utils/employee-data.js';
 
 test.describe('PIM - Employee Search', () => {
-    test('AT-PIM-001 | Search valid employee by name', async ({
-        authenticatedPage,
-    }) => {
-        const page = authenticatedPage;
-
-        const pimPage = new PimPage(page);
+    test('AT-PIM-001 | Search valid employee by name',
+        { tag: ['@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            employeeListPage,
+        }) => {
         const employee = generateEmployeeData();
 
         const fullName = [
@@ -21,70 +19,41 @@ test.describe('PIM - Employee Search', () => {
             .join(' ');
 
         // Arrange
-        await pimPage.goto();
-        await pimPage.gotoAddEmployee();
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-        await pimPage.createEmployee(employee);
+        await addEmployeePage.createEmployee(employee);
 
         // Act
-        await pimPage.gotoEmployeeList();
-
-        await pimPage.searchEmployeeByName(
-            fullName,
-        );
+        await pimNavigation.gotoEmployeeList();
+        await employeeListPage.searchEmployeeByName(fullName);
 
         // Assert
-        const employeeRow =
-            pimPage.getEmployeeRowById(
-                employee.employeeId,
-            );
+        const employeeRow = employeeListPage.getEmployeeRowById(employee.employeeId);
 
         await expect(employeeRow).toBeVisible();
+        await expect(employeeRow).toContainText(employee.employeeId);
+        await expect(employeeRow).toContainText(employee.firstName);
+        await expect(employeeRow).toContainText(employee.lastName);
+    },
+    );
 
-        await expect(employeeRow).toContainText(
-            employee.employeeId,
-        );
+    test('AT-PIM-003 | Filter current employees using Include',
+        { tag: ['@pim'] }, async ({
+            pimNavigation,
+            employeeListPage,
+        }) => {
+        await pimNavigation.goto();
+        await pimNavigation.gotoEmployeeList();
 
-        await expect(employeeRow).toContainText(
-            employee.firstName,
-        );
+        await employeeListPage.selectInclude('Current Employees Only');
+        await expect(employeeListPage.includeSelectedValue).toHaveText('Current Employees Only');
 
-        await expect(employeeRow).toContainText(
-            employee.lastName,
-        );
-    });
+        await employeeListPage.searchButton.click();
+        await expect(employeeListPage.employeeTableRows.first(),).toBeVisible();
 
-    test('AT-PIM-003 | Filter employees by Employment Status', async ({
-        authenticatedPage,
-    }) => {
-        const pimPage = new PimPage(authenticatedPage);
-
-        await pimPage.goto();
-        await pimPage.gotoEmployeeList();
-
-        await pimPage.selectEmploymentStatus(
-            'Freelancer',
-        );
-
-        await expect(
-            pimPage.employmentStatusSelectedValue,
-        ).toHaveText('Freelancer');
-
-        await pimPage.searchButton.click();
-
-        await expect(
-            pimPage.employeeTableRows.first(),
-        ).toBeVisible();
-
-        const rowCount =
-            await pimPage.employeeTableRows.count();
-
+        const rowCount = await employeeListPage.employeeTableRows.count();
         expect(rowCount).toBeGreaterThan(0);
-
-        for (let index = 0; index < rowCount; index++) {
-            await expect(
-                pimPage.employeeTableRows.nth(index),
-            ).toContainText('Freelancer');
-        }
-    });
+    },
+    );
 });

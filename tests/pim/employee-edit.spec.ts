@@ -1,242 +1,168 @@
-import { test, expect } from '../../fixtures/auth.fixture.js';
-
-import { PimPage } from '../../pages/PimPage.js';
+import { test, expect } from '../../fixtures/pim.fixture.js';
 import { generateEmployeeData, type EmployeeData } from '../../utils/employee-data.js';
+import { type PersonalDetailsPage } from '../../pages/pim/PersonalDetailsPage.js';
 
 async function expectEmployeeDetails(
-    pimPage: PimPage,
+    personalDetailsPage: PersonalDetailsPage,
     employee: EmployeeData,
 ) {
-    await expect(
-        pimPage.firstNameInput,
-    ).toHaveValue(employee.firstName);
-
-    await expect(
-        pimPage.middleNameInput,
-    ).toHaveValue(employee.middleName ?? '');
-
-    await expect(
-        pimPage.lastNameInput,
-    ).toHaveValue(employee.lastName);
-
-    await expect(
-        pimPage.employeeIdFormInput,
-    ).toHaveValue(employee.employeeId);
+    await expect(personalDetailsPage.firstNameInput).toHaveValue(employee.firstName);
+    await expect(personalDetailsPage.middleNameInput).toHaveValue(employee.middleName ?? '');
+    await expect(personalDetailsPage.lastNameInput).toHaveValue(employee.lastName);
+    await expect(personalDetailsPage.employeeIdInput).toHaveValue(employee.employeeId);
 }
 
 test.describe('PIM - Edit Employee', () => {
-    test(
-        'AT-PIM-013 | Update employee with valid data @smoke',
-        async ({ authenticatedPage }) => {
-            const page = authenticatedPage;
-            const pimPage = new PimPage(page);
+    test('AT-PIM-013 | Update employee with valid data @smoke',
+        { tag: ['@smoke', '@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            personalDetailsPage,
+        }) => {
+        const employee =
+            generateEmployeeData();
 
-            const employee = generateEmployeeData();
+        const updatedEmployee = {
+            ...employee,
+            firstName:
+                `Edit${Date.now()
+                    .toString()
+                    .slice(-5)}`,
+            middleName: 'QA',
+            lastName: 'Updated',
+        };
 
-            const updatedEmployee = {
-                ...employee,
-                firstName: `Edit${Date.now().toString().slice(-5)}`,
-                middleName: 'QA',
-                lastName: 'Updated',
-            };
+        // Arrange
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-            // Arrange
-            await pimPage.goto();
-            await pimPage.gotoAddEmployee();
-            await pimPage.createEmployee(employee);
+        await addEmployeePage.createEmployee(employee);
 
-            await expect(
-                pimPage.personalDetailsHeading,
-            ).toBeVisible();
+        await expect(personalDetailsPage.heading).toBeVisible();
+        await expectEmployeeDetails(personalDetailsPage, employee);
 
-            // Wait until Personal Details is fully hydrated
-            await expectEmployeeDetails(
-                pimPage,
-                employee,
-            );
+        // Act
+        await personalDetailsPage.updateEmployeeNames(updatedEmployee);
 
-            // Act
-            await pimPage.updateEmployeeNames(updatedEmployee);
+        await expect(personalDetailsPage.firstNameInput).toHaveValue(updatedEmployee.firstName);
+        await expect(personalDetailsPage.middleNameInput).toHaveValue(updatedEmployee.middleName);
+        await expect(personalDetailsPage.lastNameInput).toHaveValue(updatedEmployee.lastName);
 
-            // Verify inputs actually contain edited values
-            // before submitting
-            await expect(
-                pimPage.firstNameInput,
-            ).toHaveValue(updatedEmployee.firstName);
+        await Promise.all([
+            expect(personalDetailsPage.successfullyUpdatedToast).toBeVisible(),
+            personalDetailsPage.save(),
+        ]);
 
-            await expect(
-                pimPage.middleNameInput,
-            ).toHaveValue(updatedEmployee.middleName);
-
-            await expect(
-                pimPage.lastNameInput,
-            ).toHaveValue(updatedEmployee.lastName);
-
-            await Promise.all([
-                expect(
-                    pimPage.successfullyUpdatedToast,
-                ).toBeVisible(),
-
-                pimPage.savePersonalDetails(),
-            ]);
-
-            // Assert
-            await expectEmployeeDetails(
-                pimPage,
-                updatedEmployee,
-            );
-        },
+        // Assert
+        await expectEmployeeDetails(personalDetailsPage, updatedEmployee);
+    },
     );
 
-    test(
-        'AT-PIM-014 | Validate required employee name fields on edit',
-        async ({ authenticatedPage }) => {
-            const page = authenticatedPage;
-            const pimPage = new PimPage(page);
+    test('AT-PIM-014 | Validate required employee name fields on edit',
+        { tag: ['@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            personalDetailsPage,
+            authenticatedPage,
+        }) => {
+        const employee = generateEmployeeData();
 
-            const employee = generateEmployeeData();
+        // Arrange
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-            // Arrange
-            await pimPage.goto();
-            await pimPage.gotoAddEmployee();
-            await pimPage.createEmployee(employee);
+        await addEmployeePage.createEmployee(employee);
 
-            await expect(
-                pimPage.personalDetailsHeading,
-            ).toBeVisible();
+        await expect(personalDetailsPage.heading).toBeVisible();
+        await expectEmployeeDetails(personalDetailsPage, employee);
 
-            await expectEmployeeDetails(
-                pimPage,
-                employee,
-            );
+        // First Name required
+        await personalDetailsPage.firstNameInput.clear();
+        await expect(personalDetailsPage.firstNameInput).toHaveValue('');
 
-            // First Name required
-            await pimPage.firstNameInput.clear();
+        await personalDetailsPage.save();
 
-            await expect(
-                pimPage.firstNameInput,
-            ).toHaveValue('');
+        await expect(personalDetailsPage.firstNameRequiredMessage).toBeVisible();
+        await expect(authenticatedPage).toHaveURL(/pim\/viewPersonalDetails\/empNumber\/\d+/);
 
-            await pimPage.savePersonalDetails();
+        // Restore First Name
+        await personalDetailsPage.firstNameInput.fill(employee.firstName);
 
-            await expect(
-                pimPage.firstNameRequiredMessage,
-            ).toBeVisible();
+        await expect(personalDetailsPage.firstNameInput).toHaveValue(employee.firstName);
 
-            await expect(page).toHaveURL(
-                /pim\/viewPersonalDetails\/empNumber\/\d+/,
-            );
+        // Last Name required
+        await personalDetailsPage.lastNameInput.clear();
+        await expect(personalDetailsPage.lastNameInput).toHaveValue('');
 
-            // Restore First Name
-            await pimPage.firstNameInput.fill(
-                employee.firstName,
-            );
+        await personalDetailsPage.save();
 
-            await expect(
-                pimPage.firstNameInput,
-            ).toHaveValue(employee.firstName);
-
-            // Last Name required
-            await pimPage.lastNameInput.clear();
-
-            await expect(
-                pimPage.lastNameInput,
-            ).toHaveValue('');
-
-            await pimPage.savePersonalDetails();
-
-            await expect(
-                pimPage.lastNameRequiredMessage,
-            ).toBeVisible();
-
-            await expect(page).toHaveURL(
-                /pim\/viewPersonalDetails\/empNumber\/\d+/,
-            );
-        },
+        await expect(personalDetailsPage.lastNameRequiredMessage).toBeVisible();
+        await expect(authenticatedPage).toHaveURL(/pim\/viewPersonalDetails\/empNumber\/\d+/);
+    },
     );
 
-    test(
-        'AT-PIM-016 | Persist updated employee data',
-        async ({ authenticatedPage }) => {
-            const page = authenticatedPage;
-            const pimPage = new PimPage(page);
+    test('AT-PIM-016 | Persist updated employee data',
+        { tag: ['@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            employeeListPage,
+            personalDetailsPage,
+            authenticatedPage,
+        }) => {
+        const employee = generateEmployeeData();
 
-            const employee = generateEmployeeData();
+        const updatedEmployee = {
+            ...employee,
+            firstName:
+                `Persist${Date.now()
+                    .toString()
+                    .slice(-5)}`,
+            middleName: 'QA',
+            lastName: 'Verified',
+        };
 
-            const updatedEmployee = {
-                ...employee,
-                firstName: `Persist${Date.now().toString().slice(-5)}`,
-                middleName: 'QA',
-                lastName: 'Verified',
-            };
+        // Arrange
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-            // Arrange
-            await pimPage.goto();
-            await pimPage.gotoAddEmployee();
-            await pimPage.createEmployee(employee);
+        await addEmployeePage.createEmployee(employee);
 
-            await expect(
-                pimPage.personalDetailsHeading,
-            ).toBeVisible();
+        await expect(personalDetailsPage.heading).toBeVisible();
 
-            await expectEmployeeDetails(
-                pimPage,
-                employee,
-            );
+        await expectEmployeeDetails(personalDetailsPage, employee);
 
-            // Update
-            await pimPage.updateEmployeeNames(updatedEmployee);
+        // Update
+        await personalDetailsPage.updateEmployeeNames(updatedEmployee);
 
-            await expect(
-                pimPage.firstNameInput,
-            ).toHaveValue(updatedEmployee.firstName);
+        await expect(personalDetailsPage.firstNameInput).toHaveValue(updatedEmployee.firstName);
+        await expect(personalDetailsPage.lastNameInput).toHaveValue(updatedEmployee.lastName);
 
-            await expect(
-                pimPage.lastNameInput,
-            ).toHaveValue(updatedEmployee.lastName);
+        await Promise.all([
+            expect(
+                personalDetailsPage
+                    .successfullyUpdatedToast,
+            ).toBeVisible(),
 
-            await Promise.all([
-                expect(
-                    pimPage.successfullyUpdatedToast,
-                ).toBeVisible(),
+            personalDetailsPage.save(),
+        ]);
 
-                pimPage.savePersonalDetails(),
-            ]);
+        await expectEmployeeDetails(personalDetailsPage, updatedEmployee);
 
-            await expectEmployeeDetails(
-                pimPage,
-                updatedEmployee,
-            );
+        // Retrieve independently
+        await pimNavigation.gotoEmployeeList();
 
-            // Retrieve independently
-            await pimPage.gotoEmployeeList();
+        await employeeListPage.searchEmployeeById(employee.employeeId);
 
-            await pimPage.searchEmployeeById(
-                employee.employeeId,
-            );
+        const employeeRow = employeeListPage.getEmployeeRowById(employee.employeeId);
+        await expect(employeeRow).toBeVisible();
 
-            const employeeRow =
-                pimPage.getEmployeeRowById(
-                    employee.employeeId,
-                );
+        await employeeListPage.openEmployeeForEdit(employee.employeeId);
 
-            await expect(
-                employeeRow,
-            ).toBeVisible();
+        await personalDetailsPage.waitUntilDisplayed();
+        await expect(authenticatedPage).toHaveURL(/pim\/viewPersonalDetails\/empNumber\/\d+/);
 
-            await pimPage.openEmployeeForEdit(
-                employee.employeeId,
-            );
-
-            await expect(page).toHaveURL(
-                /pim\/viewPersonalDetails\/empNumber\/\d+/,
-            );
-
-            // Verify persisted data after retrieval
-            await expectEmployeeDetails(
-                pimPage,
-                updatedEmployee,
-            );
-        },
+        // Verify persisted data
+        await expectEmployeeDetails(personalDetailsPage, updatedEmployee);
+    },
     );
 });

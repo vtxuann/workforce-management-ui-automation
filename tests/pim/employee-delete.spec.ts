@@ -1,112 +1,105 @@
-import { test, expect } from '../../fixtures/auth.fixture.js';
-
-import { PimPage } from '../../pages/PimPage.js';
+import { test, expect } from '../../fixtures/pim.fixture.js';
 import { generateEmployeeData } from '../../utils/employee-data.js';
 
 test.describe('PIM - Delete Employee', () => {
-    test('AT-PIM-018 | Delete employee @smoke', async ({
-        authenticatedPage,
-    }) => {
-        const page = authenticatedPage;
-        const pimPage = new PimPage(page);
+    test('AT-PIM-018 | Delete employee',
+        { tag: ['@smoke', '@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            employeeListPage,
+            deleteEmployeeDialog,
+        }) => {
         const employee = generateEmployeeData();
 
         // Arrange
-        await pimPage.goto();
-        await pimPage.gotoAddEmployee();
-        await pimPage.createEmployee(employee);
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-        await pimPage.gotoEmployeeList();
-        await pimPage.searchEmployeeById(employee.employeeId);
+        await addEmployeePage.createEmployee(employee);
 
-        const employeeRow = pimPage.getEmployeeRowById(
-            employee.employeeId,
-        );
+        await pimNavigation.gotoEmployeeList();
 
+        await employeeListPage.searchEmployeeById(employee.employeeId);
+
+        const employeeRow = employeeListPage.getEmployeeRowById(employee.employeeId);
         await expect(employeeRow).toBeVisible();
 
-        // Act - Open deletion confirmation
-        const deleteButton = pimPage.getDeleteButtonForEmployee(
-            employee.employeeId,
-        );
-
+        // Act
+        const deleteButton = employeeListPage.getDeleteButton(employee.employeeId);
         await expect(deleteButton).toBeVisible();
+
         await deleteButton.click();
 
         // Assert confirmation dialog
-        await expect(pimPage.deleteDialog).toBeVisible();
+        await expect(deleteEmployeeDialog.dialog).toBeVisible();
 
-        await expect(
-            pimPage.deleteConfirmationTitle,
-        ).toBeVisible();
+        await expect(deleteEmployeeDialog.title).toBeVisible();
 
-        await expect(
-            pimPage.deleteConfirmationMessage,
-        ).toBeVisible();
+        await expect(deleteEmployeeDialog.message).toBeVisible();
 
-        await expect(
-            pimPage.cancelDeleteButton,
-        ).toBeVisible();
+        await expect(deleteEmployeeDialog.cancelButton).toBeVisible();
 
-        await expect(
-            pimPage.confirmDeleteButton,
-        ).toBeVisible();
+        await expect(deleteEmployeeDialog.confirmButton).toBeVisible();
 
         // Confirm deletion
         await Promise.all([
             expect(
-                pimPage.successfullyDeletedToast,
+                deleteEmployeeDialog
+                    .successfullyDeletedToast,
             ).toBeVisible(),
 
-            pimPage.confirmDeleteButton.click(),
+            deleteEmployeeDialog.confirm(),
         ]);
 
-        await expect(
-            pimPage.deleteDialog,
-        ).toBeHidden();
-    });
+        await expect(deleteEmployeeDialog.dialog).toBeHidden();
+    },
+    );
 
-    test(
-        'AT-PIM-019 | Verify deleted employee is unavailable',
-        async ({ authenticatedPage }) => {
-            const page = authenticatedPage;
-            const pimPage = new PimPage(page);
+    test('AT-PIM-019 | Verify deleted employee is unavailable',
+        { tag: ['@pim'] }, async ({
+            pimNavigation,
+            addEmployeePage,
+            employeeListPage,
+            deleteEmployeeDialog,
+            authenticatedPage,
+        }) => {
+        const employee = generateEmployeeData();
 
-            const employee = generateEmployeeData();
+        // Arrange - Create employee
+        await pimNavigation.goto();
+        await pimNavigation.gotoAddEmployee();
 
-            // Arrange - Create employee
-            await pimPage.goto();
-            await pimPage.gotoAddEmployee();
-            await pimPage.createEmployee(employee);
+        await addEmployeePage.createEmployee(employee);
 
-            // Verify employee exists before deletion
-            await pimPage.gotoEmployeeList();
+        // Verify employee exists
+        await pimNavigation.gotoEmployeeList();
 
-            await pimPage.searchEmployeeById(employee.employeeId);
+        await employeeListPage.searchEmployeeById(employee.employeeId);
 
-            const employeeRow = pimPage.getEmployeeRowById(employee.employeeId);
+        const employeeRow = employeeListPage.getEmployeeRowById(employee.employeeId);
+        await expect(employeeRow).toBeVisible();
 
-            await expect(employeeRow).toBeVisible();
+        // Delete employee
+        await employeeListPage.openDeleteConfirmation(employee.employeeId);
 
-            // Delete employee
-            await pimPage.openDeleteConfirmation(employee.employeeId);
+        await expect(deleteEmployeeDialog.dialog).toBeVisible();
 
-            await expect(pimPage.deleteDialog).toBeVisible();
+        await Promise.all([
+            expect(
+                deleteEmployeeDialog
+                    .successfullyDeletedToast,
+            ).toBeVisible(),
 
-            await Promise.all([
-                expect(pimPage.successfullyDeletedToast).toBeVisible(),
-                pimPage.confirmDelete(),
-            ]);
+            deleteEmployeeDialog.confirm(),
+        ]);
 
-            // Act - Search deleted employee again
-            await pimPage.searchEmployeeById(employee.employeeId);
+        // Search deleted employee again
+        await employeeListPage.searchEmployeeById(employee.employeeId);
 
-            // Assert
-            await expect(pimPage.noRecordsFoundMessage).toBeVisible();
-
-            await expect(employeeRow).toHaveCount(0);
-
-            await expect(page).toHaveURL(/viewEmployeeList/);
-        },
+        // Assert
+        await expect(employeeListPage.noRecordsFoundMessage).toBeVisible();
+        await expect(employeeRow).toHaveCount(0);
+        await expect(authenticatedPage).toHaveURL(/viewEmployeeList/);
+    },
     );
 });
