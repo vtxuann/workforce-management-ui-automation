@@ -20,6 +20,13 @@ export class AddEmployeePage {
 
     readonly successfullySavedToast: Locator;
 
+    readonly createLoginDetailsCheckbox: Locator;
+    readonly createLoginDetailsSwitch: Locator;
+    readonly usernameInput: Locator;
+    readonly enabledRadio: Locator;
+    readonly passwordInput: Locator;
+    readonly confirmPasswordInput: Locator;
+
     constructor(page: Page) {
         this.page = page;
 
@@ -67,21 +74,69 @@ export class AddEmployeePage {
                 'Required',
                 { exact: true },
             );
+
         this.lastNameRequiredMessage =
             lastNameFieldGroup.getByText(
                 'Required',
                 { exact: true },
             );
+
         this.employeeIdDuplicateMessage =
             employeeIdFieldGroup.getByText(
                 'Employee Id already exists',
                 { exact: true },
             );
+
         this.successfullySavedToast = page
             .locator('.oxd-toast--success')
             .getByText('Successfully Saved', {
                 exact: true,
             });
+
+        const loginDetailsHeader = page
+            .locator('.user-form-header')
+            .filter({
+                has: page.getByText(
+                    'Create Login Details',
+                    { exact: true },
+                ),
+            });
+
+        this.createLoginDetailsCheckbox =
+            loginDetailsHeader.locator(
+                'input[type="checkbox"]',
+            );
+
+        this.createLoginDetailsSwitch =
+            loginDetailsHeader.locator(
+                '.oxd-switch-input',
+            );
+
+        this.usernameInput = page
+            .locator('.oxd-input-group')
+            .filter({
+                has: page.getByText('Username', { exact: true }),
+            })
+            .locator('input');
+
+        this.enabledRadio = page
+            .getByText('Enabled', { exact: true })
+            .locator('..')
+            .locator('input[type="radio"]');
+
+        this.passwordInput = page
+            .locator('.oxd-input-group')
+            .filter({
+                has: page.getByText('Password', { exact: true }),
+            })
+            .locator('input');
+
+        this.confirmPasswordInput = page
+            .locator('.oxd-input-group')
+            .filter({
+                has: page.getByText('Confirm Password', { exact: true }),
+            })
+            .locator('input');
     }
 
     async fillEmployeeForm(employee: EmployeeData) {
@@ -107,5 +162,30 @@ export class AddEmployeePage {
             ),
             this.save(),
         ]);
+    }
+
+    async enableLoginDetails(): Promise<void> {
+        if (
+            !(await this.createLoginDetailsCheckbox
+                .isChecked())
+        ) {
+            await this.createLoginDetailsSwitch.click();
+        }
+
+        await this.usernameInput.waitFor({
+            state: 'visible',
+        });
+    }
+
+    async fillLoginDetails(
+        username: string,
+        password: string,
+    ): Promise<void> {
+        await this.enableLoginDetails();
+
+        await this.usernameInput.fill(username);
+        await this.enabledRadio.check();
+        await this.passwordInput.fill(password);
+        await this.confirmPasswordInput.fill(password);
     }
 }
