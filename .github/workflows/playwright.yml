@@ -29,6 +29,8 @@ jobs:
       ADMIN_USERNAME: "admin"
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
+      TEST_SUITE: ${{ github.event_name == 'pull_request' && 'smoke' || 'regression' }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -91,7 +93,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ github.event_name }}-${{ github.run_number }}
+          name: playwright-report-${{ env.TEST_SUITE }}-${{ github.run_number }}-${{ github.run_attempt }}
           path: playwright-report/
           if-no-files-found: ignore
           retention-days: 14
@@ -100,7 +102,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ github.event_name }}-${{ github.run_number }}
+          name: test-results-${{ env.TEST_SUITE }}-${{ github.run_number }}-${{ github.run_attempt }}
           path: test-results/
           if-no-files-found: ignore
           retention-days: 14
