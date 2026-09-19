@@ -4,12 +4,16 @@
   "description": "End-to-end UI automation framework for OrangeHRM using Playwright and TypeScript",
   "scripts": {
     "test": "playwright test",
+    "test:regression": "playwright test",
+    "test:smoke": "playwright test --grep=@smoke",
+    "test:auth": "playwright test tests/auth",
+    "test:pim": "playwright test tests/pim",
+    "test:leave": "playwright test tests/leave",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:smoke": "playwright test --grep '@smoke'",
-    "test:auth": "playwright test tests/auth",
     "test:report": "playwright show-report",
+    "test:list": "playwright test --list",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

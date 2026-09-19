@@ -46,7 +46,7 @@ services:
       ORANGEHRM_DATABASE_NAME: ${DB_NAME}
 
     volumes:
-      - orangehrm_app_data:/orangehrm
+      - orangehrm_app_data:/var/www/html
 
     depends_on:
       db:
