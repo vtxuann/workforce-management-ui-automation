@@ -6,6 +6,13 @@ CONTAINER_NAME="${ORANGEHRM_CONTAINER_NAME:-workforce-orangehrm-app}"
 INSTALLER_DIR="/var/www/html/installer"
 CONFIG_PATH="${INSTALLER_DIR}/cli_install_config.yaml"
 
+cleanup_installer_config() {
+  docker exec "${CONTAINER_NAME}" \
+    rm -f "${CONFIG_PATH}" >/dev/null 2>&1 || true
+}
+
+trap cleanup_installer_config EXIT
+
 required_vars=(
   DB_NAME
   DB_USER
