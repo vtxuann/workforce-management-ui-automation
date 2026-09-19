@@ -124,6 +124,7 @@ Key design principles include:
 ├── package.json
 ├── playwright.config.ts
 └── tsconfig.json
+```
 
 ## Environment Configuration
 
@@ -283,12 +284,12 @@ Generated runtime artifacts are excluded from source control.
 
 The repository includes QA documentation covering the testing lifecycle:
 
-- `docs/test-plan.md` - overall testing strategy, scope, environment, and approach
-- `docs/test-scenarios.md` - high-level functional test scenarios
-- `docs/test-cases.md` - detailed manual and automated test cases
-- `docs/traceability-matrix.md` - mapping between requirements, scenarios, test cases, and automated coverage
-- `docs/system-exploration.md` - exploratory findings and observed system behavior
-- `docs/system-module-map.md` - functional decomposition of the system under test
+- [Test Plan](docs/test-plan.md) - overall testing strategy, scope, environment, and approach
+- [Test Scenarios](docs/test-scenarios.md) - high-level functional test scenarios
+- [Test Cases](docs/test-cases.md) - detailed manual and automated test cases
+- [Traceability Matrix](docs/traceability-matrix.md) - mapping between requirements, scenarios, test cases, and automated coverage
+- [System Exploration](docs/system-exploration.md) - exploratory findings and observed system behavior
+- [System Module Map](docs/system-module-map.md) - functional decomposition of the system under test
 
 ## Key Engineering Decisions
 
