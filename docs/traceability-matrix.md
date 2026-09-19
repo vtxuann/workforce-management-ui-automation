@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document provides end-to-end traceability between the defined Test Scenarios, detailed Test Cases, and planned Automated Tests for the Workforce Management System Automation Framework.
+This document provides end-to-end traceability between the defined Test Scenarios, detailed Test Cases, and corresponding Automated Tests for the Workforce Management System Automation Framework.
 
 The Traceability Matrix is designed to:
 
@@ -200,17 +200,17 @@ Observed behaviors without sufficiently confirmed business requirements remain m
 |---|---|---|---|---|---|---|---|---|
 | TS-LEAVE-001 | TC-LEAVE-001 | Submit a leave request with valid information | P0 | Pending Oracle | - | - | High automation value, but successful submission behavior and resulting state require further confirmation before implementation. | Pending |
 | TS-LEAVE-001 | TC-LEAVE-002 | Submit leave request with required fields missing | P1 | Pending Oracle | - | - | Required fields and exact validation behavior require further confirmation. | Pending |
-| TS-LEAVE-001 | TC-LEAVE-003 | Submit leave request with an invalid date range | P1 | Selected | AT-LEAVE-003 | Regression | Observed deterministic date-range validation provides a reliable automation oracle. | Planned |
-| TS-LEAVE-001 | TC-LEAVE-004 | Submit leave request with insufficient leave balance | P0 | Selected | AT-LEAVE-004 | Regression | High-value business-rule validation with observed insufficient-balance feedback. | Planned |
+| TS-LEAVE-001 | TC-LEAVE-003 | Submit leave request with an invalid date range | P1 | Selected | AT-LEAVE-003 | Regression | Observed deterministic date-range validation provides a reliable automation oracle. | Automated |
+| TS-LEAVE-001 | TC-LEAVE-004 | Submit leave request with insufficient leave balance | P0 | Selected | AT-LEAVE-004 | Regression | Confirmed ESS behavior blocks leave application when the requested duration exceeds the available balance. | Automated |
 | TS-LEAVE-002 | TC-LEAVE-005 | View available leave records | P2 | Backlog | - | - | Useful supporting coverage but lower MVP automation priority. | Backlog |
 | TS-LEAVE-002 | TC-LEAVE-006 | Search leave records using relevant criteria | P2 | Backlog | - | - | Valuable regression coverage but lower priority than critical Leave transactions. | Backlog |
 | TS-LEAVE-002 | TC-LEAVE-007 | Filter leave records | P2 | Backlog | - | - | Supporting filter behavior with lower MVP regression priority. | Backlog |
 | TS-LEAVE-002 | TC-LEAVE-008 | Verify relevant leave information and request status | P2 | Backlog | - | - | Useful data-verification coverage but not required for the initial automation MVP. | Backlog |
 | TS-LEAVE-003 | TC-LEAVE-009 | Assign leave to an employee with valid information | P1 | Pending Oracle | - | - | Valid assignment has automation value, but successful assignment feedback and resulting state require further confirmation. | Pending |
 | TS-LEAVE-003 | TC-LEAVE-010 | Submit leave assignment with required information missing | P1 | Pending Oracle | - | - | Exact required fields and validation behavior require further confirmation. | Pending |
-| TS-LEAVE-003 | TC-LEAVE-011 | Assign leave when employee has insufficient leave balance | P0 | Selected | AT-LEAVE-011 | Regression | Observed insufficient-balance workflow provides a meaningful and repeatable business-rule regression test. | Planned |
-| TS-LEAVE-004 | TC-LEAVE-012 | Approve a pending leave request | P0 | Selected | AT-LEAVE-012 | Smoke | Critical Leave state transition with high business impact. | Planned |
-| TS-LEAVE-004 | TC-LEAVE-013 | Reject a pending leave request | P0 | Selected | AT-LEAVE-013 | Regression | Critical Leave state transition with high regression value. | Planned |
+| TS-LEAVE-003 | TC-LEAVE-011 | Assign leave when employee has insufficient leave balance | P0 | Selected | AT-LEAVE-011 | Regression | Confirmed Admin override behavior allows leave assignment after insufficient-balance confirmation, providing a deterministic business-rule regression test. | Automated |
+| TS-LEAVE-004 | TC-LEAVE-012 | Approve a pending leave request | P0 | Selected | AT-LEAVE-012 | Smoke | Critical Leave state transition with high business impact. | Automated |
+| TS-LEAVE-004 | TC-LEAVE-013 | Reject a pending leave request | P0 | Selected | AT-LEAVE-013 | Regression | Critical Leave state transition with high regression value. | Automated |
 | TS-LEAVE-004 | TC-LEAVE-014 | Verify leave request status after approval or rejection | P0 | Pending Oracle | - | - | Status persistence after navigation or refresh requires further confirmation before reliable automation. | Pending |
 
 ### Leave Automation Summary
@@ -603,7 +603,7 @@ The current MVP test design contains:
 - **5 Pending Oracle Test Cases**
 - **1 Deferred Scope Test Case**
 - **7 Smoke Tests**
-- **25 total tests in the planned MVP Regression suite**
+- **25 automated tests in the MVP Regression suite**
 
 The resulting traceability model is:
 

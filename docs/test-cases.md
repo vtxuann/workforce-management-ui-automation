@@ -80,7 +80,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P0 |
 | Test Type | Positive |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -116,7 +116,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P0 |
 | Test Type | Negative |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -151,7 +151,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P0 |
 | Test Type | Negative |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -186,7 +186,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P1 |
 | Test Type | Validation |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -220,7 +220,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P1 |
 | Test Type | Validation |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -254,7 +254,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-001 |
 | Priority | P2 |
 | Test Type | Validation |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -288,7 +288,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-002 |
 | Priority | P0 |
 | Test Type | Positive / State Transition |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -320,7 +320,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-003 |
 | Priority | P0 |
 | Test Type | Session / Security |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -355,7 +355,7 @@ The following values are used:
 | Scenario ID | TS-AUTH-003 |
 | Priority | P0 |
 | Test Type | Session / Security |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -392,7 +392,7 @@ The following values are used:
 | Scenario ID | TS-PIM-001 |
 | Priority | P1 |
 | Test Type | Positive |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -459,7 +459,7 @@ The following values are used:
 | Scenario ID | TS-PIM-001 |
 | Priority | P1 |
 | Test Type | Functional |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -562,7 +562,7 @@ The following values are used:
 | Scenario ID | TS-PIM-002 |
 | Priority | P0 |
 | Test Type | Positive |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -600,7 +600,7 @@ The following values are used:
 | Scenario ID | TS-PIM-002 |
 | Priority | P1 |
 | Test Type | Negative / Validation |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -786,7 +786,7 @@ Search variations:
 | Scenario ID | TS-PIM-002 |
 | Priority | P1 |
 | Test Type | Negative / Validation / Business Rule |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -825,7 +825,7 @@ Search variations:
 | Scenario ID | TS-PIM-002 |
 | Priority | P1 |
 | Test Type | Data Persistence |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -858,7 +858,7 @@ Search variations:
 | Scenario ID | TS-PIM-003 |
 | Priority | P0 |
 | Test Type | Positive |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -892,7 +892,7 @@ Search variations:
 | Scenario ID | TS-PIM-003 |
 | Priority | P1 |
 | Test Type | Negative / Validation |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -975,7 +975,7 @@ Search variations:
 | Scenario ID | TS-PIM-003 |
 | Priority | P0 |
 | Test Type | Data Persistence |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1041,7 +1041,7 @@ Search variations:
 | Scenario ID | TS-PIM-004 |
 | Priority | P0 |
 | Test Type | Positive |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1074,7 +1074,7 @@ Search variations:
 | Scenario ID | TS-PIM-004 |
 | Priority | P0 |
 | Test Type | Data Integrity |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1182,7 +1182,7 @@ Search variations:
 | Scenario ID | TS-LEAVE-001 |
 | Priority | P1 |
 | Test Type | Negative / Business Rule |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1216,7 +1216,7 @@ Search variations:
 | Scenario ID | TS-LEAVE-001 |
 | Priority | P0 |
 | Test Type | Negative / Business Rule |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1456,14 +1456,15 @@ Search variations:
 | Test Case ID | TC-LEAVE-011 |
 | Scenario ID | TS-LEAVE-003 |
 | Priority | P0 |
-| Test Type | Negative / Business Rule |
-| Automation Status | Planned |
+| Test Type | Business Rule / Override |
+| Automation Status | Automated |
 
 **Precondition**
 
 - User is authenticated.
 - User has permission to assign leave.
 - A valid employee is available.
+- The employee has insufficient leave balance for the requested duration.
 
 **Test Data**
 
@@ -1475,14 +1476,20 @@ Search variations:
 
 1. Navigate to the Assign Leave page.
 2. Select the target employee.
-3. Enter the invalid leave information.
-4. Submit the assignment.
+3. Select a valid leave type.
+4. Enter a leave duration exceeding the employee's available balance.
+5. Verify that the insufficient-balance indication is displayed.
+6. Click the Assign button.
+7. Verify that the confirmation dialog is displayed.
+8. Confirm the leave assignment.
 
 **Expected Result**
 
-- The system displays the insufficient balance indication.
+- The system displays the insufficient-balance indication.
 - A confirmation dialog is displayed when the assignment is attempted.
-- If the user confirms the assignment, the system does not create an invalid leave assignment and displays the observed failure/warning feedback.
+- The dialog warns that the employee does not have sufficient leave balance.
+- After the user confirms the assignment, the leave assignment is accepted.
+- The system displays the `Successfully Saved` success feedback.
 
 ---
 
@@ -1494,7 +1501,7 @@ Search variations:
 | Scenario ID | TS-LEAVE-004 |
 | Priority | P0 |
 | Test Type | Positive / State Transition |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1527,7 +1534,7 @@ Search variations:
 | Scenario ID | TS-LEAVE-004 |
 | Priority | P0 |
 | Test Type | Negative / State Transition |
-| Automation Status | Planned |
+| Automation Status | Automated |
 
 **Precondition**
 
@@ -1652,4 +1659,4 @@ The resulting traceability chain is:
 
 `Test Scenario → Test Case → Automated Test`
 
-The corresponding automated test identifiers will be established during the Playwright automation phase.
+Automated Test identifiers for the implemented MVP coverage are maintained in `traceability-matrix.md`.
